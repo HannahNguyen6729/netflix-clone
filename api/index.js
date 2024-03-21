@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { config } from 'dotenv';
 
+import authRoute from './routes/auth.js';
+
 config();
 const app = express();
 
@@ -18,9 +20,6 @@ const PORT = 8080;
 
 app.use(express.json());
 
-//routers
-app.use('/', () => {
-  console.log('OK');
-});
+app.use('/api/auth', authRoute);
 
 app.listen(PORT, () => console.log(`server listening on port: ${PORT}`));
