@@ -8,7 +8,7 @@ import { AuthContext } from './authContext/AuthContext';
 
 function App() {
   const { user } = useContext(AuthContext);
-  console.log({ user });
+
   const router = createBrowserRouter([
     {
       path: '/',
