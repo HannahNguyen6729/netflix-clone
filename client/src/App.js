@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Watch from './pages/Watch';
-import Home from './pages/Home';
-import Register from './pages/Register';
-import Login from './pages/Login';
+import Watch from './pages/watch/Watch';
+import Home from './pages/home/Home';
+import Register from './pages/register/Register';
+import Login from './pages/login/Login';
 
 const user = true;
 
