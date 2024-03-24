@@ -3,33 +3,38 @@ import Watch from './pages/watch/Watch';
 import Home from './pages/home/Home';
 import Register from './pages/register/Register';
 import Login from './pages/login/Login';
-
-const user = true;
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/register',
-    element: !user ? <Register /> : <Home />,
-  },
-  {
-    path: '/movies',
-    element: user ? <Home type="movie" /> : <Login />,
-  },
-  {
-    path: '/series',
-    element: user ? <Home type="series" /> : <Login />,
-  },
-  {
-    path: '/watch',
-    element: user ? <Watch /> : <Login />,
-  },
-]);
+import { useContext } from 'react';
+import { AuthContext } from './authContext/AuthContext';
 
 function App() {
+  const { user } = useContext(AuthContext);
+  console.log({ user });
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: user ? <Home /> : <Register />,
+    },
+    {
+      path: '/register',
+      element: !user ? <Register /> : <Home />,
+    },
+    {
+      path: '/login',
+      element: !user ? <Login /> : <Home />,
+    },
+    {
+      path: '/movies',
+      element: user ? <Home type="movie" /> : <Login />,
+    },
+    {
+      path: '/series',
+      element: user ? <Home type="series" /> : <Login />,
+    },
+    {
+      path: '/watch',
+      element: user ? <Watch /> : <Login />,
+    },
+  ]);
   return <RouterProvider router={router} />;
 }
 
