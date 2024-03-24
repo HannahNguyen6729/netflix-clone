@@ -12,7 +12,7 @@ export default function Featured({ type, setGenre }) {
     const getRandomContent = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/movies/random?type=${type}`,
+          `${process.env.REACT_APP_API_URL}/api/movies/random?type=${type}`,
           {
             headers: {
               token:

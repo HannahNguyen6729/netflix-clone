@@ -16,7 +16,7 @@ export default function ListItem({ index, item }) {
     const getMovie = async () => {
       try {
         const res = await axios.get(
-          'http://localhost:8080/api/movies/find/' + item,
+          `${process.env.REACT_APP_API_URL}/api/movies/find/${item}`,
           {
             headers: {
               token:
