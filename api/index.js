@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { config } from 'dotenv';
+import cors from 'cors';
 
 import authRoute from './routes/auth.js';
 import userRoute from './routes/users.js';
@@ -22,6 +23,7 @@ connectDB();
 const PORT = 8080;
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/api/auth', authRoute);
 app.use('/api/users', userRoute);
