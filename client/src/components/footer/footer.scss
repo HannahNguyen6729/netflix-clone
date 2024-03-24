@@ -1,3 +1,5 @@
+@import '../../app.scss';
+
 .footer_container {
   display: flex;
   flex-direction: column;
@@ -65,7 +67,7 @@ option {
   border-style: none;
 }
 
-@media (max-width: 550px) {
+/* @media (max-width: 550px) {
   .footer_inside_container {
     width: 85%;
     padding: 2rem 2.8rem;
@@ -85,4 +87,4 @@ option {
   p {
     font-size: 0.9rem;
   }
-}
+} */
