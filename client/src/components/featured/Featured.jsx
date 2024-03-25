@@ -1,33 +1,36 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { truncateWords } from '../../utils/helper';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import InfoIcon from '@mui/icons-material/Info';
 import './featured.scss';
+import { AuthContext } from '../../authContext/AuthContext';
 
 export default function Featured({ type, setGenre }) {
   const [content, setContent] = useState({});
+  const { user } = useContext(AuthContext);
+  const token = user.accessToken;
 
   useEffect(() => {
     const getRandomContent = async () => {
       try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/movies/random?type=${type}`,
-          {
-            headers: {
-              token:
-                'Bearer ' +
-                JSON.parse(localStorage.getItem('user')).accessToken,
-            },
-          }
-        );
-        setContent(res.data[0]);
+        if (token !== null) {
+          const res = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/movies/random?type=${type}`,
+            {
+              headers: {
+                token: 'Bearer ' + token,
+              },
+            }
+          );
+          setContent(res.data[0]);
+        }
       } catch (err) {
         console.log(err);
       }
     };
     getRandomContent();
-  }, [type]);
+  }, [type, token]);
 
   return (
     <div className="featured">

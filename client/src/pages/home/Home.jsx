@@ -1,37 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Footer from '../../components/footer/Footer';
 import Navbar from '../../components/navbar/Navbar';
 import Featured from '../../components/featured/Featured';
 import axios from 'axios';
 import './home.scss';
 import List from '../../components/list/List';
+import { AuthContext } from '../../authContext/AuthContext';
 
 const Home = ({ type }) => {
   const [genre, setGenre] = useState(null);
   const [lists, setLists] = useState([]);
+  const { user } = useContext(AuthContext);
+  const token = user.accessToken;
 
   useEffect(() => {
     const getRandomLists = async () => {
       try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/lists${
-            type ? '?type=' + type : ''
-          }${genre ? '&genre=' + genre : ''}`,
-          {
-            headers: {
-              token:
-                'Bearer ' +
-                JSON.parse(localStorage.getItem('user')).accessToken,
-            },
-          }
-        );
-        setLists(res.data);
+        if (token !== null) {
+          const res = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/lists${
+              type ? '?type=' + type : ''
+            }${genre ? '&genre=' + genre : ''}`,
+            {
+              headers: {
+                token: 'Bearer ' + token,
+              },
+            }
+          );
+          setLists(res.data);
+        }
       } catch (err) {
         console.log(err);
       }
     };
     getRandomLists();
-  }, [type, genre]);
+  }, [type, genre, token]);
   return (
     <div className="home">
       <Navbar />
